@@ -1,0 +1,53 @@
+
+//Print all the associated values along with it’s square from the list. Use Stream API’s peek, map, and forEach.
+
+package pkgDay6;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class Day6Ex5StreamApi {
+    public static void main(String[] args) {
+        List<Integer> li1 = Arrays.asList(1, 2, 13, 47, 5, 6, 13, 2);
+
+        // Print all odd numbers from the list
+        System.out.println("Odd numbers:");
+        li1.stream()
+                .filter(num -> num % 2 != 0)
+                .forEach(System.out::println);
+
+        System.out.println();
+
+        // Print all the associated values along with their square from the list
+        System.out.println("Values and their squares:");
+        li1.stream()
+                .peek(num -> System.out.println(num + " -> " + num * num))
+                .forEach(System.out::println);
+    }
+}
+
+Op:
+Odd numbers:
+1
+13
+47
+5
+13
+
+Values and their squares:
+1 -> 1
+1
+2 -> 4
+2
+13 -> 169
+13
+47 -> 2209
+47
+5 -> 25
+5
+6 -> 36
+6
+13 -> 169
+13
+2 -> 4
+2
