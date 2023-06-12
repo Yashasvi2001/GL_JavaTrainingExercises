@@ -1,0 +1,30 @@
+//WAP to create lambda for mathematical operation such as add, subtract, multiply, divide based on an interface for operation
+package pkgDay6;
+
+interface MathOpLambda {
+	int operation(int x, int y);
+}
+
+public class Day6Ex3Lambda {
+	public static void main(String[] args) {
+		MathOp add = (x, y) -> x + y;
+		MathOp subtract = (x, y) -> x - y;
+		MathOp multiply = (x, y) -> x * y;
+		MathOp divide = (x, y) -> x / y;
+
+		int resultAdd = add.operation(1, 8);
+		int resultSubtract = subtract.operation(10, 5);
+		int resultMultiply = multiply.operation(2, 4);
+		int resultDivide = divide.operation(10, 2);
+
+		System.out.println("Addition: " + resultAdd);
+		System.out.println("Subtraction: " + resultSubtract);
+		System.out.println("Multiplication: " + resultMultiply);
+		System.out.println("Division: " + resultDivide);
+	}
+}
+
+Output:Addition: 9
+Subtraction: 5
+Multiplication: 8
+Division: 5
