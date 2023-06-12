@@ -1,0 +1,22 @@
+//From a List of string, print the count of empty strings using filter(), count().
+package pkgDay6;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class Day6Ex6String {
+    public static void main(String[] args) {
+        List<String> strings = Arrays.asList("Hello", "", "World", "", "Java", "");
+
+        long count = strings.stream()
+                .filter(str -> str.isEmpty())
+                .count();
+
+        System.out.println("Count of empty strings: " + count);
+    }
+}
+
+
+
+Output:
+Count of empty strings: 3
