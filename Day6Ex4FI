@@ -1,0 +1,31 @@
+//WAP to use FI : BiFunction<Integer, Integer,Integer> for  operations such as add, subtract, multiply, divide
+package pkgDay6;
+
+import java.util.function.BiFunction;
+
+public class Day6Ex4FI {
+    public static void main(String[] args) {
+        BiFunction<Integer, Integer, Integer> add = (x, y) -> x + y;
+        BiFunction<Integer, Integer, Integer> subtract = (x, y) -> x - y;
+        BiFunction<Integer, Integer, Integer> multiply = (x, y) -> x * y;
+        BiFunction<Integer, Integer, Integer> divide = (x, y) -> x / y;
+
+        int resultAdd = add.apply(1, 8);
+        int resultSubtract = subtract.apply(10, 5);
+        int resultMultiply = multiply.apply(2, 4);
+        int resultDivide = divide.apply(10, 2);
+
+        System.out.println("Addition: " + resultAdd);
+        System.out.println("Subtraction: " + resultSubtract);
+        System.out.println("Multiplication: " + resultMultiply);
+        System.out.println("Division: " + resultDivide);
+    }
+}
+
+
+
+Output:
+Addition: 9
+Subtraction: 5
+Multiplication: 8
+Division: 5
