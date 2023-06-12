@@ -1,0 +1,52 @@
+package PkgDay4;
+
+import java.util.Scanner;
+
+public class Day4Ex1ArithmaticException {
+    private int empAge;
+
+    public Day4Ex1ArithmaticException( int empAge) {
+        this.empAge = empAge;
+    }
+
+    public void checkAge() {
+        if (empAge == 0) {
+            throw new ArithmeticException("Ghosts not allowed in Company");
+        } else if (empAge < 18) {
+            throw new ArithmeticException("Children not allowed in Company");
+        } else if (empAge > 60 && empAge < 100) {
+            throw new ArithmeticException("Senior Citizens not allowed in Company");
+        } else if (empAge > 200) {
+            throw new ArithmeticException("Zombies not allowed in Company");
+        } else {
+            System.out.println("Employee with Age: " + empAge + " joined the company.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+     
+        System.out.print("Enter employee age: ");
+        int empAge = scanner.nextInt();
+
+        Day4Ex1ArithmaticException emp = new Day4Ex1ArithmaticException(empAge);
+
+        try {
+            emp.checkAge();
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+Output:
+Enter employee age: 0
+Ghosts not allowed in Company
+
+Enter employee age: 16
+Children not allowed in Company
+
+Enter employee age: 2388
+Zombies not allowed in Company
