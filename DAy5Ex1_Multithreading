@@ -1,0 +1,46 @@
+package pkgDay5Multithreading;
+
+import java.util.Scanner;
+
+public class Day5Ex1 {
+    public static boolean validator(String input)
+    {
+        int i = -1;
+        char[] stack = new char[input.length()];
+        for (char ch : input.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[')
+                stack[++i] = ch;
+            else {
+                if (i >= 0
+                    && ((stack[i] == '(' && ch == ')')
+                        || (stack[i] == '{' && ch == '}')
+                        || (stack[i] == '[' && ch == ']')))
+                    i--;
+                else
+                    return false;
+            }
+        }
+        return i == -1;
+    }
+    public static void main(String args[]) {
+    Scanner sc=new Scanner(System.in);
+    System.out.println("enter the string");
+    String str=sc.nextLine();
+    String input="";
+    for (char ch : str.toCharArray()) {
+         if (ch == '(' || ch == '{' || ch == '['|| ch=='}'||ch==')'||ch==']') {
+             input=input+ch;
+         }
+    }
+    
+     if (validator(input))
+         System.out.println("Balanced");
+     else
+         System.out.println("Not Balanced");
+ }
+}
+
+Output:
+enter the string
+12
+Balanced
