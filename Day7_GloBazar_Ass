@@ -1,0 +1,246 @@
+//pkg GlobBazar
+//create class customer & product
+//customer type G P P G
+//define then getter setter method then tostring method
+//throw exception
+//create class crmapplication
+//createlist >addproductdetails >displayproductdetails >displaygreetingmsg>
+//main method try & catch
+
+package GlobBazar;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+enum CustomerType {
+    Loyal, Platinum, Premium, GoldClass
+}
+
+class Customer {
+    private int cid;
+    private String cname;
+    private String homeLocation;
+    private CustomerType typeOfCustomer;
+
+    public Customer(int cid, String cname, String homeLocation, CustomerType typeOfCustomer) {
+        this.cid = cid;
+        this.cname = cname;
+        this.homeLocation = homeLocation;
+        this.typeOfCustomer = typeOfCustomer;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public String getHomeLocation() {
+        return homeLocation;
+    }
+
+    public CustomerType getTypeOfCustomer() {
+        return typeOfCustomer;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer [cid=" + cid + ", cname=" + cname + ", homeLocation=" + homeLocation + ", typeOfCustomer="
+                + typeOfCustomer + "]";
+    }
+}
+
+class Product {
+    private String pcode;
+    private String productName;
+    private List<Integer> cidList;
+
+    public Product(String pcode, String productName, List<Integer> cidList) {
+        this.pcode = pcode;
+        this.productName = productName;
+        this.cidList = cidList;
+    }
+
+    public String getPcode() {
+        return pcode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public List<Integer> getCidList() {
+        return cidList;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [pcode=" + pcode + ", productName=" + productName + ", cidList=" + cidList + "]";
+    }
+}
+
+class CustomerNotFoundException extends Exception {
+    public CustomerNotFoundException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+    private List<Customer> customers;
+    private List<Product> products;
+
+    public Main() {
+        customers = new ArrayList<>();
+        products = new ArrayList<>();
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public void displayCustomers() {
+        customers.forEach(System.out::println);
+    }
+
+    public void sortByLocation() {
+        customers.sort(Comparator.comparing(Customer::getHomeLocation));
+    }
+
+    public Customer searchByName(String name) throws CustomerNotFoundException {
+        Optional<Customer> optionalCustomer = customers.stream()
+                .filter(customer -> customer.getCname().equalsIgnoreCase(name))
+                .findFirst();
+        if (optionalCustomer.isPresent()) {
+            return optionalCustomer.get();
+        } else {
+            throw new CustomerNotFoundException("Customer not found with name: " + name);
+        }
+    }
+
+    public void createLists() {
+        List<Customer> evenCidCustomers = customers.stream()
+                .filter(customer -> customer.getCid() % 2 == 0)
+                .collect(Collectors.toList());
+
+        List<Customer> oddCidCustomers = customers.stream()
+                .filter(customer -> customer.getCid() % 2 != 0)
+                .collect(Collectors.toList());
+
+        System.out.println("Customers with even Cid numbers: ");
+        evenCidCustomers.forEach(System.out::println);
+
+        System.out.println("\nCustomers with odd Cid numbers: ");
+        oddCidCustomers.forEach(System.out::println);
+    }
+
+    public void addProductDetails(Product product) {
+        products.add(product);
+    }
+
+    public void displayProductDetails() {
+        products.forEach(System.out::println);
+    }
+
+    public void displayGreetingMessages(String customerName) {
+        Thread thread1 = new Thread(() -> System.out.println("Hi " + customerName));
+        Thread thread2 = new Thread(() -> System.out.println("Welcome to Glob Bazar"));
+
+        thread1.start();
+        thread2.start();
+    }
+
+    public static void main(String[] args) {
+
+
+        // Requirement 1: Add customers
+        Set<Customer> customers = new HashSet<>();
+
+        // Add customers
+        addCustomer(customers, 1, "John", "New York", CustomerType.Loyal);
+        addCustomer(customers, 2, "Emily", "London", CustomerType.Platinum);
+        addCustomer(customers, 3, "David", "Paris", CustomerType.Premium);
+        addCustomer(customers, 4, "Sophia", "Tokyo", CustomerType.GoldClass);
+        addCustomer(customers, 5, "Emma", "Sydney", CustomerType.Loyal);
+
+        // Display customers
+        displayCustomers(customers);
+    }
+
+    private static void addCustomer(Set<Customer> customers, int cid, String cname, String homeLocation, CustomerType typeOfCustomer) {
+        // Create a new customer object
+        Customer customer = new Customer(cid, cname, homeLocation, typeOfCustomer);
+
+        // Add the customer to the set
+        customers.add(customer);
+    }
+
+    private static void displayCustomers(Set<Customer> customers) {
+        for (Customer customer : customers) {
+            System.out.println("Customer ID: " + customer.getCid());
+            System.out.println("Customer Name: " + customer.getCname());
+            System.out.println("Home Location: " + customer.getHomeLocation());
+            System.out.println("Type of Customer: " + customer.getTypeOfCustomer());
+            System.out.println("--------------------------");
+        }
+    
+        Main crm = new Main();
+        // Requirement 2: Sort customers by location
+        crm.sortByLocation();
+
+        // Requirement 3: Search customer by name
+        try {
+            Customer customer = crm.searchByName("Rakesh");
+            System.out.println("\nCustomer found: " + customer);
+        } catch (CustomerNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Requirement 4: Create lists based on even and odd Cid numbers
+        crm.createLists();
+
+        // Requirement 5: Add product details
+        List<Integer> cidList = Arrays.asList(101, 102, 103);
+        crm.addProductDetails(new Product("p101", "Kurta", cidList));
+
+        // Requirement 6: Display greeting messages using threads
+        crm.displayGreetingMessages("Yashasvi");
+    }
+}
+
+
+
+
+Output:
+Customer ID: 1
+Customer Name: John
+Home Location: New York
+Type of Customer: Loyal
+--------------------------
+Customer ID: 5
+Customer Name: Emma
+Home Location: Sydney
+Type of Customer: Loyal
+--------------------------
+Customer ID: 4
+Customer Name: Sophia
+Home Location: Tokyo
+Type of Customer: GoldClass
+--------------------------
+Customer ID: 3
+Customer Name: David
+Home Location: Paris
+Type of Customer: Premium
+--------------------------
+Customer ID: 2
+Customer Name: Emily
+Home Location: London
+Type of Customer: Platinum
+--------------------------
+Customer not found with name: Rakesh
+Customers with even Cid numbers: 
+
+Customers with odd Cid numbers: 
+Hi Yashasvi
+Welcome to Glob Bazar
