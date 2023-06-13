@@ -1,0 +1,186 @@
+package PkgDay3;
+
+//Main class - ERPagent
+class ERPagent {
+ private String name;
+ private String id;
+
+ public ERPagent(String name, String id) {
+     this.name = name;
+     this.id = id;
+ }
+
+ public void displayInfo() {
+     System.out.println("Name: " + name);
+     System.out.println("ID: " + id);
+ }
+}
+
+//Child class 1 - TrainingAgent
+class TrainingAgent extends ERPagent {
+ private int salesCount;
+
+ public TrainingAgent(String name, String id, int salesCount) {
+     super(name, id);
+     this.salesCount = salesCount;
+ }
+
+ public void displaySalesCount() {
+     System.out.println("Sales Count: " + salesCount);
+ }
+}
+
+//Child class 2 - AuthorizationAgent
+class AuthorizationAgent extends ERPagent {
+ private double balance;
+
+ public AuthorizationAgent(String name, String id, double balance) {
+     super(name, id);
+     this.balance = balance;
+ }
+
+ public void displayBalance() {
+     System.out.println("Balance: " + balance);
+ }
+}
+
+//Child class 3 - InternetProviderAgent
+class InternetProviderAgent extends ERPagent {
+ private int quantity;
+
+ public InternetProviderAgent(String name, String id, int quantity) {
+     super(name, id);
+     this.quantity = quantity;
+ }
+
+ public void displayQuantity() {
+     System.out.println("Quantity: " + quantity);
+ }
+}
+
+//Child class 4 - DataConverterAgent
+class DataConverterAgent extends ERPagent {
+ private int employeesCount;
+
+ public DataConverterAgent(String name, String id, int employeesCount) {
+     super(name, id);
+     this.employeesCount = employeesCount;
+ }
+
+ public void displayEmployeesCount() {
+     System.out.println("Employees Count: " + employeesCount);
+ }
+}
+
+//Child class 5 - MAintainanceAgent
+class MAintainanceAgent extends ERPagent {
+ private int productionCount;
+
+ public MAintainanceAgent(String name, String id, int productionCount) {
+     super(name, id);
+     this.productionCount = productionCount;
+ }
+
+ public void displayProductionCount() {
+     System.out.println("Production Count: " + productionCount);
+ }
+}
+
+//Child class 6 - CostAgent
+class CostAgent extends ERPagent {
+ private double totalPurchaseAmount;
+
+ public CostAgent(String name, String id, double totalPurchaseAmount) {
+     super(name, id);
+     this.totalPurchaseAmount = totalPurchaseAmount;
+ }
+
+ public void displayTotalPurchaseAmount() {
+     System.out.println("Total Purchase Amount: " + totalPurchaseAmount);
+ }
+}
+
+//Child class 7 - ERPSystem
+class ERPSystem extends ERPagent {
+ private String campaignName;
+
+ public ERPSystem(String name, String id, String campaignName) {
+     super(name, id);
+     this.campaignName = campaignName;
+ }
+
+ public void displayCampaignName() {
+     System.out.println("Campaign Name: " + campaignName);
+ }
+}
+
+//Child class 8 - SystemTestingAgent
+class SystemTestingAgent extends ERPagent {
+ private String supportType;
+
+ public SystemTestingAgent(String name, String id, String supportType) {
+     super(name, id);
+     this.supportType = supportType;
+ }
+
+ public void displaySupportType() {
+     System.out.println("Support Type: " + supportType);
+ }
+}
+
+//Child class 9 - DevelopmentAgent
+class DevelopmentAgent extends ERPagent {
+private String Dev;
+
+public DevelopmentAgent(String name, String id, String Dev) {
+   super(name, id);
+   this.Dev = Dev;
+}
+
+public void displayDev() {
+   System.out.println("Dev: " + Dev);
+}
+}
+
+//Main class to test the inheritance hierarchy
+public class Day3Ex1 {
+ public static void main(String[] args) {
+     TrainingAgent TrainingAgent = new TrainingAgent("Yashasvi", "001", 100);
+     TrainingAgent.displayInfo();
+     TrainingAgent.displaySalesCount();
+
+     AuthorizationAgent AuthorizationAgent = new AuthorizationAgent("Chandler", "002", 5000.0);
+     AuthorizationAgent .displayInfo();
+     AuthorizationAgent .displayBalance();
+
+     InternetProviderAgent  InternetProviderAgent = new  InternetProviderAgent("joey", "003", 50);
+     InternetProviderAgent.displayInfo();
+     InternetProviderAgent.displayQuantity();
+
+     DataConverterAgent DataConverterAgent = new  DataConverterAgent("Rachel", "004", 10);
+     DataConverterAgent.displayInfo();
+     DataConverterAgent.displayEmployeesCount();
+
+     MAintainanceAgent MAintainanceAgent = new MAintainanceAgent("Pheobe", "005", 200);
+     MAintainanceAgent.displayInfo();
+     MAintainanceAgent.displayProductionCount();
+
+     CostAgent CostAgent = new CostAgent("Ross", "006", 10000.0);
+     CostAgent.displayInfo();
+     CostAgent.displayTotalPurchaseAmount();
+
+     ERPSystem  ERPSystem   = new ERPSystem("Monika", "007", "Summer Sale");
+     ERPSystem.displayInfo();
+     ERPSystem.displayCampaignName();
+
+    SystemTestingAgent itAgent = new SystemTestingAgent("Rio", "008", "Software Support");
+     itAgent.displayInfo();
+     itAgent.displaySupportType();
+     
+     DevelopmentAgent DevelopmentAgent = new DevelopmentAgent("Tokyo", "009", "Technician");
+     DevelopmentAgent.displayInfo();
+     DevelopmentAgent.displayDev();
+     
+    
+ }
+}
