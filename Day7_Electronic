@@ -1,0 +1,196 @@
+package ElectronicStore;
+
+import java.util.*;
+
+enum ProductType {
+    MOBILE,
+    LAPTOP,
+    TELEVISION,
+    REFRIGERATOR,
+    WASHING_MACHINE
+}
+
+class Product {
+    private int prodId;
+    private String prodName;
+    private int quantity;
+
+    public Product(int prodId, String prodName, int quantity) {
+        this.prodId = prodId;
+        this.prodName = prodName;
+        this.quantity = quantity;
+    }
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public boolean isAvailable() {
+        return quantity > 0;
+    }
+
+    @Override
+    public String toString() {
+        return prodId + ", " + prodName + ", " + quantity;
+    }
+}
+
+class GloElectronics {
+    private List<Product> productList;
+
+    public GloElectronics() {
+        this.productList = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) {
+        productList.add(product);
+    }
+
+    public void displayProduct() {
+        for (Product product : productList) {
+            System.out.println(product);
+        }
+    }
+
+    public boolean searchByName(String productName) {
+        return productList.stream()
+                .filter(product -> product.getProdName().equalsIgnoreCase(productName))
+                .anyMatch(Product::isAvailable);
+    }
+
+    public void sortByQuantity() {
+        productList.sort(Comparator.comparingInt(Product::getQuantity));
+    }
+}
+
+class Customer {
+    private String cId;
+    private String cName;
+    private List<Product> productList;
+
+    public Customer(String cId, String cName) {
+        this.cId = cId;
+        this.cName = cName;
+        this.productList = new ArrayList<>();
+    }
+
+    public void addSalesDetails(List<Product> products) {
+        productList.addAll(products);
+    }
+
+    public void printDetails() {
+        System.out.println("Customer - cId - " + cId + ", cName - " + cName + ", products - " + productList);
+    }
+
+    public boolean hasPurchasedMultipleTypes() {
+        Set<String> types = new HashSet<>();
+        productList.forEach(product -> types.add(product.getProdName()));
+        return types.size() > 1;
+    }
+
+	@Override
+	public String toString() {
+		return "Customer [cId=" + cId + ", cName=" + cName + ", productList=" + productList + "]";
+	}
+    
+    
+}
+
+public class ElectronicMain {
+    public static void main(String[] args) {
+        GloElectronics gloElectronics = new GloElectronics();
+
+        Product[] products = {
+                new Product(101, "AppleIphone 14 pro", 14),
+                new Product(102, "AppleIphone 13", 13),
+                new Product(103, "AppleIphone 12", 12),
+                new Product(104, "AppleIphone 11", 11),
+                new Product(105, "AppleIphone 10", 10)
+        };
+
+        gloElectronics.addProduct(products[0]);
+        gloElectronics.addProduct(products[1]);
+        gloElectronics.addProduct(products[2]);
+        gloElectronics.addProduct(products[3]);
+        gloElectronics.addProduct(products[4]);
+
+        System.out.println("Products:");
+        gloElectronics.displayProduct();
+        System.out.println();
+
+        String searchProductName = "Sony";
+        boolean isAvailable = gloElectronics.searchByName(searchProductName);
+        System.out.println("Product '" + searchProductName + "' is available: " + isAvailable);
+        System.out.println();
+
+        gloElectronics.sortByQuantity();
+        System.out.println("Products sorted by quantity:");
+        gloElectronics.displayProduct();
+        System.out.println();
+
+        Customer[] customers = {
+                new Customer("C101", "Yashasvi"),
+                new Customer("C102", "Jio"),
+                new Customer("C103", "Tokyo")
+
+        };
+
+        List<Product> customer1Products = new ArrayList<>();
+        customer1Products.add(products[0]);
+        customer1Products.add(products[1]);
+        customer1Products.add(products[2]);
+        customers[0].addSalesDetails(customer1Products);
+
+        List<Product> customer2Products = new ArrayList<>();
+        customer2Products.add(products[3]);
+        customer2Products.add(products[4]);
+        customers[1].addSalesDetails(customer2Products);
+
+        System.out.println("Customer Details:");
+        for (Customer customer : customers) {
+            customer.printDetails();
+        }
+        System.out.println();
+
+        System.out.println("Customers purchased more than one type of product:");
+        for (Customer customer : customers) {
+            if (customer.hasPurchasedMultipleTypes()) {
+                System.out.println(customer);
+            }
+        }
+        System.out.println();
+
+        displayMessage();
+    }
+
+    private static void displayMessage() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter product type: ");
+        String productType = scanner.nextLine();
+
+        Thread thread1 = new Thread(() -> {
+            if (productType.equalsIgnoreCase("Mobile") || productType.equalsIgnoreCase("TV")) {
+                System.out.println("Product type is " + productType + " - Available");
+            }
+        });
+
+        Thread thread2 = new Thread(() -> {
+            System.out.println("Welcome to Glo Electronics");
+        });
+
+        thread1.start();
+        thread2.start();
+    }
+
+}
+
+
+
