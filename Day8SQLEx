@@ -1,0 +1,80 @@
+
+
+///////1st Que
+insert into Employee values (104,'D',30000);
+101    A    10000
+102    B    20000
+103    C    25000
+104    D    30000
+
+insert into leaves values (104,20);        
+101    5
+101    10
+104    20
+
+delete from Employee where emoId=104;
+12:36:20    delete from Employee where emoId=104    Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (training.leaves, CONSTRAINT leaves_ibfk_1 FOREIGN KEY (emoId) REFERENCES employee (emoId))    0.000 sec
+
+update Employee set emoId=105 where empName='D';
+SET SQL_SAFE_UPDATES = 0;
+12:38:27    update Employee set emoId=105 where empName='D'    Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (training.leaves, CONSTRAINT leaves_ibfk_1 FOREIGN KEY (emoId) REFERENCES employee (emoId))    0.000 sec
+
+update leaves set emoId=103 where noOfdLeaves=20;
+SET SQL_SAFE_UPDATES = 0;
+101    5
+101    10
+103    20
+
+delete from leaves where emoId=104;
+12:43:21    select * from leaves LIMIT 0, 1000    3 row(s) returned    0.000 sec / 0.000 sec
+
+
+//////2nd question 
+
+
+
+select * from people order by age desc;
+8    Ajay    30
+1    Yashasvi    24
+2    Ishu    22
+3    Jane    22
+7    Yashasvi    20
+5    Suman    18
+6    Suman    18
+        
+select * from people order by age desc limit 2;
+8    Ajay    30
+1    Yashasvi    24
+
+
+/////////3rd question
+
+use training;
+create table movies (
+id int primary key,
+title varchar(50),
+category varchar(30)
+);
+create table members (
+id int primary key,
+first_name varchar(20),
+last_name varchar(20),
+movie_id int, foreign key (movie_id) references movies(id)
+);
+insert into movies values (1,'ASSASSINS CREED: EMBERS','Animations'),
+(2,'Real Steel','Animations'),
+(3,'Alvin and Chipmunks','Animations'),
+(4,'The Adventures of Tin Tin','Animations'),
+(5,'Safe','Action'),
+(6,'Safe House','Action'),
+(7,'3 Idoits','Drama'),
+(8,'Ghajni','Drama'),
+(9,'Nayak','Drama'),
+(10,'Marley and me','Family');
+select * from movies;
+insert into members values (1,'Adam','Smith',1);
+insert into members values (2,'Ravi','Kumar',2),
+(3,'Susan','Davidson',5),
+(4,'Jenny','Adrianna',8),
+(5,'Lee','Pong',10);
+select * from members;
