@@ -1,0 +1,26 @@
+package Assignments;
+import java.util.Scanner; // class is a utility class that allow to read input from various sources such as console or files
+public class DAy1_Prb1Tax {
+    public static double calculateIncomeTax(double earnings) {
+        double incomeTax = 0.0;
+        if (earnings > 150000) {
+            incomeTax = (earnings - 150000) * 0.3; 
+            earnings = 150000; 
+        }
+        if (earnings > 60000) {
+            incomeTax += (earnings - 60000) * 0.2; 
+            earnings = 60000; 
+        } 
+        if (earnings > 50000) {
+            incomeTax += (earnings - 50000) * 0.1; 
+        }
+        return incomeTax;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter employee earnings: ");
+        double earnings = sc.nextDouble();
+        double incomeTax = calculateIncomeTax(earnings);
+        System.out.println("Income Tax to be paid: Rs. " + incomeTax);
+    }
+}
