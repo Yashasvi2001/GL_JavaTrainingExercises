@@ -1,0 +1,263 @@
+
+package EMS_Prb8;
+
+public class Employee {
+	static int empCount = 0;
+	private int empId;
+	private String empName;
+	private String designation;
+	private double salary;
+
+	public Employee() {
+
+	}
+
+	public Employee(int empId, String empName, String des, double sal) {
+		this.empId = empId;
+		this.empName = empName;
+		this.designation = des;
+		this.salary = sal;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public int getEmpCount() {
+		return empCount;
+	}
+
+	public void setEmpCount(int empCount) {
+		Employee.empCount = empCount;
+	}
+
+
+	@Override
+	public String toString() {
+		return "\nEmpId\tEmpName\tDesignation\tSalary\n" + empId + "\t" + empName + "\t"
+				+ designation + "\t" + salary + "\n";
+	}
+}
+---------------------------------------
+package EMS_Prb8;
+
+import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+
+public class EmpSystem {
+	Scanner scan = new Scanner(System.in);
+	ArrayList<Employee> empList = new ArrayList<Employee>();
+
+	boolean find(int idNumber) {
+		for (Employee id : empList) {
+			if (id.getEmpId() == idNumber) {
+				System.out.println(id);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	Employee findRecord(int id) {
+		for (Employee empId : empList) {
+			if (empId.getEmpId() == id) {
+				return empId;
+			}
+		}
+
+		return null;
+	}
+
+	void add(Employee record) {
+
+		if (!find(record.getEmpId())) {
+			System.out.println("\nRecord Saved Successfully\nEmployee List:" + record);
+			empList.add(record);
+		} else {
+			System.out.println("Record already exists in the Record list");
+		}
+	}
+
+	void update(int id) {
+		if (find(id)) {
+			Employee record = findRecord(id);
+
+			System.out.print("What is the new Employee id ? ");
+			int empId = scan.nextInt();
+			record.setEmpId(empId);
+
+			System.out.print("What is the new Employee Name ");
+			String name = scan.next();
+			record.setEmpName(name);
+
+			System.out.print("What is the new Designation ? ");
+			String des = scan.next();
+			record.setDesignation(des);
+
+			System.out.print("What is the new Salary ? ");
+			double sal = scan.nextDouble();
+			record.setSalary(sal);
+			record.setEmpCount(Employee.empCount++);
+			System.out.println("Record Updated Successfully");
+			System.out.println("\nEmployee List:" + record.toString());
+		} else {
+			System.out.println("Record Not Found!!!");
+		}
+	}
+
+	void display(Employee rec) {
+		if (empList.isEmpty()) {
+			System.out.println("The list has no records\n");
+		}
+
+		System.out.println("No of Employees:" + Employee.empCount + "\nEmployee List:");
+		for (Employee list : empList) {
+			System.out.println(list.toString());
+		}
+	}
+
+	void delete(int id) {
+		Employee record = null;
+
+		for (Employee list : empList) {
+			if (list.getEmpId() == id) {
+				record = list;
+			}
+		}
+
+		if (record == null) {
+			System.out.println("Invalid Employee Id");
+		} else {
+			record.setEmpCount(Employee.empCount - 1);
+			empList.remove(record);
+			System.out.println("Successfully delete record from the list");
+		}
+	}
+
+	void menu() {
+		System.out.println("Menu:");
+		System.out.println(
+				"1.Add Employee\n2.Update Employee\n3.View Employee\n4.Delete Employee\n5.Employee whose salary is above 20000\n6.Employee sorted based on employee name in ascending order\n7.Employee names are in upper case.\n8.Exit");
+		System.out.println("Enter choice:(1-5)");
+	}
+
+	Predicate<Employee> isSalary = sal -> sal.getSalary() > 20000;
+	Predicate<Employee> isNameUpper = name -> name.getEmpName() == name.getEmpName().toUpperCase();
+	
+	void sort() {
+		
+	}
+
+	public static void main(String[] args) {
+		Employee record = new Employee();
+		EmpSystem record1 = new EmpSystem();
+
+		int option = 0;
+		while (true) {
+			record1.menu();
+			option = record1.scan.nextInt();
+
+			switch (option) {
+
+			case 1:
+				try {
+					System.out.print("What is the Employee id ? ");
+					int empId = record1.scan.nextInt();
+
+					System.out.print("What is the Employee Name ? ");
+					String name = record1.scan.next();
+
+					System.out.print("What is the Designation ? ");
+					String des = record1.scan.next();
+
+					System.out.print("What is the Salary ? ");
+					double sal = record1.scan.nextDouble();
+					record.setEmpCount(Employee.empCount + 1);
+					record = new Employee(empId, name, des, sal);
+					record1.add(record);
+
+				} catch (ArithmeticException e1) {
+					System.out.println(e1);
+				} catch (InputMismatchException e) {
+					System.out.println("Input is't matching with data type");
+				}
+
+				break;
+
+			case 2:
+				System.out.print("What is the Employee id ? ");
+				int updateEmpid = record1.scan.nextInt();
+				record1.update(updateEmpid);
+				break;
+
+			case 3:
+				Employee rec = new Employee();
+				record1.display(rec);
+				break;
+
+			case 4:
+				System.out.print("What is the Employee id ? ");
+				int ids = record1.scan.nextInt();
+				record1.delete(ids);
+				break;
+			case 5:
+				System.out.print("List of employees whose salary is above 20000:\n");
+				List<Employee> empSal = record1.empList.stream().filter(record1.isSalary).toList();
+				System.out.print(empSal.isEmpty() ? "Record not found!!" : empSal);
+				break;
+			case 6:
+				System.out.print("Employee sorted based on employee name in ascending order:\n");
+				record1.empList.stream().sorted((o1, o2) -> o1.getEmpName().compareTo(o2.getEmpName()))
+						.forEach(System.out::println);
+				break;
+			case 7:
+				System.out.print("Employee with UPPER case:\n");
+				List<Employee> li = record1.empList.stream().filter(record1.isNameUpper).toList();
+				System.out.print(li);
+				break;
+			case 8:
+				System.out.println("\nThank you for using the program. Goodbye!\n");
+				System.exit(0);
+				break;
+
+			default:
+				System.out.println("\nInvalid input\n");
+				break;
+			}
+		}
+	}
+
+}
