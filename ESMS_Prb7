@@ -1,0 +1,188 @@
+package EMS_Prb7;
+
+public class Employee {
+	static int empCount = 0;
+	private int empId;
+	private String empName;
+	private String designation;
+	private double salary;
+	private Project project;
+
+	public Employee() {
+
+	}
+
+	public Employee(int empId, String empName, String des, double sal, Project pro) {
+		this.empId = empId;
+		this.empName = empName;
+		this.designation = des;
+		this.salary = sal;
+		this.project = pro;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public int getEmpCount() {
+		return empCount;
+	}
+
+	public void setEmpCount(int empCount) {
+		Employee.empCount = empCount;
+	}
+
+	public Project setProject(Project pro) {
+		return this.project = pro;
+	}
+
+	@Override
+	public String toString() {
+		return "\nEmpId\tEmpName\tDesignation\tSalary\t Project Id\t Project Name\n" + empId + "\t" + empName + "\t"
+				+ designation + "\t" + salary + "\t" + project.getProjectId() + "\t" + project.getProjectName() + "\n";
+	}
+}
+
+
+
+--------------------------
+package EMS_Prb7;
+
+public class Employee {
+	static int empCount = 0;
+	private int empId;
+	private String empName;
+	private String designation;
+	private double salary;
+	private Project project;
+
+	public Employee() {
+
+	}
+
+	public Employee(int empId, String empName, String des, double sal, Project pro) {
+		this.empId = empId;
+		this.empName = empName;
+		this.designation = des;
+		this.salary = sal;
+		this.project = pro;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public int getEmpCount() {
+		return empCount;
+	}
+
+	public void setEmpCount(int empCount) {
+		Employee.empCount = empCount;
+	}
+
+	public Project setProject(Project pro) {
+		return this.project = pro;
+	}
+
+	@Override
+	public String toString() {
+		return "\nEmpId\tEmpName\tDesignation\tSalary\t Project Id\t Project Name\n" + empId + "\t" + empName + "\t"
+				+ designation + "\t" + salary + "\t" + project.getProjectId() + "\t" + project.getProjectName() + "\n";
+	}
+}
+
+---------------------------------
+package EMS_Prb7;
+
+public class Project {
+	private int projectId;
+	private String projectName;
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+
+	public Project() {
+	}
+
+	public Project(int id, String name) {
+		this.projectId = id;
+		this.projectName = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [projectId=" + projectId + ", projectName=" + projectName + "]";
+	}
+	
+}
+
+
