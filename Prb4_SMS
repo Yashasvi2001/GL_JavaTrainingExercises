@@ -1,0 +1,217 @@
+//create a pkgSMS under pkg4
+//create subpkg name entity
+//create a class student and course with their respective field
+//write logic for writing have to create main class under SMS pkg
+//innitilize the entity class
+//accepting the data from user class using scanner class
+//declare an array of type student
+//innitializing array
+//firstly we need the course to be searched
+//we will have a loop through students and if a particular student has that couse then we will print it
+//obj.course.size()==course which we want then that students has to be printed
+
+
+//understand what r data involved
+//>extract data 
+//>functionalities
+//divide problem into subparts >classes by 2&3 points
+// design the process
+//development
+//analyse
+
+package SMS_Prb4;
+
+public class Student {
+	private int sid;
+	private String sname;
+	private String saddress;
+	private Course scourse;
+
+	
+
+	public Student(int sid2, String sname2, String saddress2) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.sid = sid;
+		this.sname = sname;
+		this.saddress = saddress;
+		this.scourse = scourse;
+	}
+
+	public int getSid() {
+		return sid;
+	}
+
+	public String getSname() {
+		return sname;
+	}
+
+	public String getSaddress() {
+		return saddress;
+	}
+
+	public Course getScourse() {
+		return scourse;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [sid=" + sid + ", sname=" + sname + ", saddress=" + saddress + ", scourse=" + scourse + "]";
+	}
+
+	public void addCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Course[] getCourses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}
+-------------------------------------------------------
+package SMS_Prb4;
+
+public class Course {
+	private int cid;
+	private String cname;
+
+	Course(int cid, String cname, String department) {
+		this.cid = cid;
+		this.cname = cname;
+	}
+
+	public int getCid() {
+		return cid;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [cid=" + cid + ", cname=" + cname + "]";
+	}
+
+	public String getDepartment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}
+
+---------------------------------------------------------
+package SMS_Prb4;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    private static Map<String, List<Student>> courseMap = new HashMap<>();
+    private static List<Student> students = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("Student Management System Menu");
+            System.out.println("1. Create students");
+            System.out.println("2. List students by course");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    createStudents(scanner);
+                    break;
+                case 2:
+                    listStudentsByCourse(scanner);
+                    break;
+                case 3:
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 3);
+
+        scanner.close();
+    }
+
+    private static void createStudents(Scanner scanner) {
+        System.out.print("Enter the number of students to create: ");
+        int numStudents = scanner.nextInt();
+        scanner.nextLine(); // Consume newline character
+
+        for (int i = 0; i < numStudents; i++) {
+            System.out.println("\n--- Creating Student " + (i + 1) + " ---");
+            System.out.print("Enter Student ID: ");
+            int sid = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+            System.out.print("Enter Student Name: ");
+            String sname = scanner.nextLine();
+            System.out.print("Enter Student Address: ");
+            String saddress = scanner.nextLine();
+
+            Student student = new Student(sid, sname, saddress);
+            students.add(student);
+
+            System.out.print("Enter the number of courses for the student: ");
+            int numCourses = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            for (int j = 0; j < numCourses; j++) {
+                System.out.println("\n--- Assigning Course " + (j + 1) + " ---");
+                System.out.print("Enter Course ID: ");
+                int cid = scanner.nextInt();
+                scanner.nextLine(); // Consume newline character
+                System.out.print("Enter Course Name: ");
+                String cname = scanner.nextLine();
+                System.out.print("Enter Department Name: ");
+                String department = scanner.nextLine();
+
+                Course course = new Course(cid, cname, department);
+                student.addCourse(course);
+
+                // Update courseMap
+                List<Student> studentsList = courseMap.getOrDefault(cname, new ArrayList<>());
+                studentsList.add(student);
+                courseMap.put(cname, studentsList);
+            }
+        }
+
+        System.out.println("\nStudents created successfully!");
+    }
+
+    private static void listStudentsByCourse(Scanner scanner) {
+        System.out.print("Enter the course name: ");
+        String courseName = scanner.nextLine();
+        List<Student> studentsList = courseMap.get(courseName);
+
+        if (studentsList == null || studentsList.isEmpty()) {
+            System.out.println("No students found for the specified course.");
+        } else {
+            System.out.println("\n--- Students studying " + courseName + " ---");
+            for (Student student : studentsList) {
+                System.out.println(student);
+                System.out.println("Courses: ");
+                for (Course course : student.getCourses()) {
+                    if (course.getCname().equals(courseName)) {
+                        System.out.println("- " + course.getCname() + " (" + course.getDepartment() + ")");
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+}
+
